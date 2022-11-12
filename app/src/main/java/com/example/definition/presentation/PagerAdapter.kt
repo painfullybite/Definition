@@ -1,0 +1,20 @@
+package com.example.definition.presentation
+
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.definition.presentation.favorite.FavoriteFragment
+
+
+class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> SearchFragment()
+            else -> FavoriteFragment()
+        }
+    }
+
+    override fun getItemCount(): Int = 2
+
+}
