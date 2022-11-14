@@ -1,4 +1,4 @@
-package com.example.definition.presentation
+package com.example.definition.presentation.definition
 
 import android.view.LayoutInflater
 import android.view.View

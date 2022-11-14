@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definition.R
 import com.example.definition.data.cloud.model.Word
-import com.example.definition.presentation.DefinitionActivity
+import com.example.definition.presentation.definition.DefinitionActivity
 import com.example.definition.utils.Utils
 
 class FavoriteAdapter(private val words: List<Word>) :

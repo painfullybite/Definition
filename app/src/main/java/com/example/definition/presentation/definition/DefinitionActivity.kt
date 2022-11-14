@@ -1,4 +1,4 @@
-package com.example.definition.presentation
+package com.example.definition.presentation.definition
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,7 @@ class DefinitionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_definition)
-
+        val viewModel = ViewModelProvider(this).get(DefinitionViewModel::class.java)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val wordDao = WordDatabase.getDatabase(this).wordDao()
@@ -64,10 +65,8 @@ class DefinitionActivity : AppCompatActivity() {
         val wordString = intent.extras?.getString(WORD_KEY)
 
         if (wordString != null) {
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val wordDb = wordDao.findWord(wordString)
-                if (wordDb == null) {
+            viewModel.getWord(wordString,wordDao){
+                if (it == null) {
                     isWordFavorite = false
                     updateFavoriteImage(favoriteImageView)
                 } else {
@@ -75,6 +74,7 @@ class DefinitionActivity : AppCompatActivity() {
                     updateFavoriteImage(favoriteImageView)
                 }
             }
+
 
             favoriteImageView.setOnClickListener {
                 if (isWordFavorite) {
